@@ -7,6 +7,12 @@ import getJobLists from "@salesforce/apex/AccountSelector.getJobLists";
 import getIconsMetaData from "@salesforce/apex/AccountSelector.getIconsMetaData";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
+import test from '@salesforce/label/c.TEST_LABEL';
+// Example :- import greeting from '@salesforce/label/c.greeting';
+
+
+
+import DDF_PROJECT_SCREEN from "@salesforce/resourceUrl/ddf_screen_for_portfolio";
 import MY_IMAGE from "@salesforce/resourceUrl/bdm_passport_photo";
 const REQFIELDS = [
   "My_Site_Vist__c.Name",
@@ -15,6 +21,7 @@ const REQFIELDS = [
 export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
   myImage = MY_IMAGE;
+  ddf_screen = DDF_PROJECT_SCREEN
   skills = [
     "Aura/LWC/VF Pages",
     "Apex/Triggers",
@@ -41,14 +48,22 @@ export default class BhushanPortfolioLWC extends LightningElement {
 
   checkAndClick() {
     const target  = this.template.querySelector(`.job-div[data-id="${this.jobNames[0]}"]`);
+    // const currentSection = this.template.querySelector('.animate-on-scroll');
     if (target && this.isInViewport(target)) {
         target.click();
         window.removeEventListener('scroll', this.scrollHandlerBound); // prevent repeated clicks
     }
+
+    // if (currentSection && this.isInViewport(currentSection)) {
+    //     currentSection.getElementsByClassName('content').classList.add('show-now')
+    // }
 }
 
 isInViewport(element) {
     const rect = element.getBoundingClientRect();
+    // console.log('OUTPUT : rect' +rect.top+'   bot- '+rect.bottom);
+    // console.log('OUTPUT : windo' +window.innerHeight+'   width- '+window.innerWidth);
+    // console.log('-----------------------------------------------------------------------');
     return (
         rect.top >= 0 &&
         rect.left >= 0 &&
@@ -58,36 +73,12 @@ isInViewport(element) {
 }
 
   renderedCallback() {
-    console.log("rendercallback -- work");
+    console.log("rendercallback -- work"+test);
 
     const mainBody = this.template.querySelector(".main-body");
     if (!this.isFirstRender) {
-      // let topJobDiv = this.template.querySelector(`.job-div[data-id="${this.jobNames[0]}"]`);
-      // if (topJobDiv && this.isInViewport(topJobDiv)) {
-      //     topJobDiv.click();
-      //     // window.removeEventListener('scroll', this.checkAndClick.bind(this)); // prevent repeated clicks
-
-      // }
       this.isFirstRender = true;
     }
-
-    // if (!this.observer) {
-    //     const options = {
-    //       threshold: 0.3,
-    //     };
-  
-    //     this.observer = new IntersectionObserver((entries) => {
-    //       entries.forEach(entry => {
-    //         if (entry.isIntersecting) {
-    //           entry.target.classList.add('visible');
-    //         }
-    //       });
-    //     }, options);
-  
-    //     this.template.querySelectorAll('.main-body').forEach(section => {
-    //       this.observer.observe(section);
-    //     });
-    //   }
   }
 
   disconnectedCallback() {
@@ -305,27 +296,29 @@ isInViewport(element) {
   // }
 
   handleJobClick(event) {
-    try {
-        window.removeEventListener("scroll", this.scrollHandlerBound);
+      event.preventDefault(); 
+    // try {
+    //     window.removeEventListener("scroll", this.scrollHandlerBound);
         
-    } catch (error) {
-        console.log("OUTPUT : event listner remove", error);
-        console.log("OUTPUT : event listner remove", JSON.stringify(error));
+    // } catch (error) {
+    //     console.log("OUTPUT : event listner remove", error);
+    //     console.log("OUTPUT : event listner remove", JSON.stringify(error));
         
-    }
+    // }
     const clickedElement = event.currentTarget;
+    // console.log('OUTPUT : --- value-- ',clickedElement.dataset.id);
     let jobDescElement = this.template.querySelector(".job-description-info");
     jobDescElement.classList.remove("job-description-info");
     const border = this.template.querySelector(".active-border");
 
     const topOffset = clickedElement.offsetTop;
     const height = clickedElement.offsetHeight;
-
+    // console.log('OUTPUT : offeset--',topOffset,' bottom  ', height);
     border.style.top = `${topOffset}px`;
     border.style.height = `${height}px`;
 
     // Optional: scroll into view
-    clickedElement.scrollIntoView({ behavior: "smooth" });
+    // clickedElement.scrollIntoView({ behavior: "smooth" });
 
     void jobDescElement.offsetWidth; //void div.offsetWidth; forces a reflow, so the animation can start fresh.
 
@@ -333,6 +326,11 @@ isInViewport(element) {
     requestAnimationFrame(() => {
       jobDescElement.classList.add("job-description-info"); //requestAnimationFrame() waits for the DOM to update before reapplying the class.
     });
+
+    const section = this.template.querySelector('#Experience').click(); // Change ID as needed
+    // if (section) {
+      // section.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to it
+    // }/
     // console.log("OUTPUT : ", JSON.stringify(this.currentJobDetails));
   }
 }
