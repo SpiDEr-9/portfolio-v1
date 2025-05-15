@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 05-10-2025
+  @last modified on  : 05-15-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -91,7 +91,7 @@
                     <h1>Hi, I am</h1>
                 </div>
                 <div class="my-name box">
-                    <h2>Bhushan Dilip Mhatre [SpiDEr]</h2>
+                    <h2>Bhushan Dilip Mhatre.</h2>
                     <h2>I am a SALESFORCE DEVELOPER🧑‍💻</h2>
                 </div>
                 <div class="caption-narrative box">
@@ -223,46 +223,76 @@
                     <div class="project">
                         <div class="project-image">
                             <div class="mix-blend-mode">
-                                <img src={ddf_screen} alt="Halcyon Theme" />
+                                <!-- <a> -->
+                                    <img src={ddf_screen} alt="DDF TWF Bajaj Finserv" />
+                                <!-- </a> -->
                             </div>
                         </div>
                         <div class="project-content overlay right">
                         <p class="project-label">Featured Project</p>
-                        <h3 class="project-title">Halcyon Theme</h3>
+                        <h3 class="project-title p-t-right">Bajaj Finserv Two-Wheeler Loan's</h3>
                             <div class="project-details"> 
 
                                 <p class="project-description">
-                                    A minimal, dark blue theme for VS Code, Sublime
-                                    Text, Atom, iTerm, and more. Available on Visual
-                                    Studio Marketplace, Package Control, Atom
-                                    Package Manager, and npm.
+                                    Built a dynamic, metadata-driven customer verification screen for a two-wheeler loan app,
+                                    featuring configurable tabs (e.g., Address Proof, Loan Details) 
+                                    and flexible field control across parent-child objects—enabling customization without code changes.
                                 </p>
                             </div>
-                            <p class="project-tech">VS Code · Sublime Text ·
-                                Atom · iTerm2 · Hyper</p>
+                            <p class="project-tech right">Apex · LWC ·
+                                VF-Pages · Custom Metadata .<br> Middleware Integration</p>
                             </div>
                     </div>
 
                     <!-- Project 2 (reversed layout) -->
                     <div class="project reverse">
                         <div class="project-image">
-                            <div class="mix-blend-mode">
-                                <img src={ddf_screen} alt="Spotify Profile" />
+                            <div class="mix-blend-mode right">
+                                <a target="_blank"  class="href-project" href="https://chromewebstore.google.com/detail/sf-code-coverage-extracto/ajinopdlephadgiblilmgghcgcnaboha?authuser=2&hl=en-GB">
+                                    <img src={chrome_ext_cc} class="right" alt="Chrome Ext" />
+                                </a>
                             </div>
                         </div>
                         <div class="project-content overlay left">
-                            <p class="project-label">Featured Project</p>
-                            <h3 class="project-title">Spotify Profile</h3>
+                            <p class="project-label">Chrome Extension</p>
+                            <h3 class="project-title">SF Code Coverage Extractor</h3>
                             <div class="project-details"> 
                             <p class="project-description">
-                                A web app for visualizing personalized Spotify
-                                data. View top artists, top tracks, recently
-                                played tracks, and detailed audio info. Create
-                                and save playlists of recommended songs.
+                                Shows the code coverage and code covered by each method induvidually
+                                The Salesforce Code Coverage extension provides an intuitive and detailed interface 
+                                for developers working with Salesforce. It helps ensure the quality and reliability 
+                                of Apex code by monitoring the test coverage during development and deployment.
                             </p></div>
-                            <p class="project-tech">React · Styled Components ·
-                                Express · Spotify API · Heroku</p>
+                            <p class="project-tech left">JS · HTML ·
+                                CSS · Salesforce Tooling API</p>
                         </div>
+                    </div>
+
+
+                    <!-- project 3  -->
+                     
+                    <div class="project">
+                        <div class="project-image">
+                            <div class="mix-blend-mode">
+                                <a target="_blank"  class="href-project" href="https://chromewebstore.google.com/detail/sf-custom-label-finder/imifoidgfheoaeoebmpgejihgdalhnfd?authuser=2&hl=en-GB">
+                                    <img src={chrome_ext_clf} alt="DDF TWF Bajaj Finserv" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-content overlay right">
+                        <p class="project-label">Chrome Extension</p>
+                        <h3 class="project-title">SF Custom Label Finder</h3>
+                            <div class="project-details"> 
+
+                                <p class="project-description">
+                                    Get all custom label from salesforce org with it's value and search them easily.
+                                    The Salesforce Custom Label Finder extension is a powerful tool for Salesforce developers,
+                                    allowing them to quickly search and retrieve custom labels and their values from their Salesforce org.
+                                </p>
+                            </div>
+                            <p class="project-tech right">JS · HTML ·
+                                CSS · Salesforce Tooling API</p>
+                            </div>
                     </div>
 
                 </div>
@@ -270,16 +300,32 @@
 
         </section>
 
-        <!-- <section id="Expesssrience">
-                    <div class="main-body exp-section">
-                        <ul>
-                            <template for:each={socialIcons} for:item="icon">
-                              <li class="social-links svg-item" key={icon.Id}  data-id={icon.Id} lwc:dom="manual"></li>
-                            </template>
-                        </ul>
-                    </div>
+              <section class="animate-on-scroll" id="Contact">
 
-        </section> -->
+            <div class="main-body no-margin exp-section content" data-id="section3">
+                <h2 class="secion-heading no-after contactme-section-number box">Contact Me</h2>
+                <div class="exp-main-outer">
+
+                    <div class="get-in-touch">
+                        I'm always open to new connections, collaborations, or just a friendly chat. 
+                        Whether you have a project idea, a question, or simply want to say hello — feel free to drop me a message. 
+                        I’ll do my best to respond as soon as I can. 
+                    </div>
+                    
+  
+                </div><br><br>  
+                <div class="connect-me-div">
+                    <button class="connect-me-btn">Connect With Me</button>
+                </div> 
+            </div>
+            
+            <div class="footer">
+                <label class="thanks">Thank's for your visit 😊</label> 
+                <label>visitor's count: {visitorCount} 😊</label> 
+                
+            </div>
+
+        </section>
 
     </div>
 </template>

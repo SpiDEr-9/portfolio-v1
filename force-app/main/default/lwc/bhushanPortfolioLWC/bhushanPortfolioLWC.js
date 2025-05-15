@@ -4,6 +4,7 @@ import getVisitCount from "@salesforce/apex/AccountSelector.getVisitCount";
 import updateVisitCount from "@salesforce/apex/AccountSelector.updateVisitCount";
 import createVisitorIpReocrd from "@salesforce/apex/AccountSelector.createVisitorIpReocrd";
 import getJobLists from "@salesforce/apex/AccountSelector.getJobLists";
+import getVisitorsCountTillNow from "@salesforce/apex/AccountSelector.getVisitorsCountTillNow";
 import getIconsMetaData from "@salesforce/apex/AccountSelector.getIconsMetaData";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -13,6 +14,8 @@ import test from '@salesforce/label/c.TEST_LABEL';
 
 
 import DDF_PROJECT_SCREEN from "@salesforce/resourceUrl/ddf_screen_for_portfolio";
+import CHROME_EXT_CODE_CVG from "@salesforce/resourceUrl/portfolio_chrome_ext_code_coverage";
+import CHROME_EXT_CUSTOM_LABEL_FINDER from "@salesforce/resourceUrl/portfolio_chrome_ext_custom_label_finder";
 import MY_IMAGE from "@salesforce/resourceUrl/bdm_passport_photo";
 const REQFIELDS = [
   "My_Site_Vist__c.Name",
@@ -22,6 +25,8 @@ export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
   myImage = MY_IMAGE;
   ddf_screen = DDF_PROJECT_SCREEN
+  chrome_ext_cc = CHROME_EXT_CODE_CVG
+  chrome_ext_clf = CHROME_EXT_CUSTOM_LABEL_FINDER
   skills = [
     "Aura/LWC/VF Pages",
     "Apex/Triggers",
@@ -42,8 +47,13 @@ export default class BhushanPortfolioLWC extends LightningElement {
   isFirstRender = false;
   socialIcons = "";
   observer;
+  visitorCount = 0;
 
   scrollHandlerBound = null
+  scrollYNav = 0
+
+  scrollNavBarRemove
+  
 
 
   checkAndClick() {
@@ -79,9 +89,21 @@ isInViewport(element) {
     if (!this.isFirstRender) {
       this.isFirstRender = true;
     }
+
+
+    // let navbar = this.template.querySelector('.nav');
+    // console.log('OUTPUT : navbar--',JSON.stringify(navbar));
+// try{
+
+    
+// }catch(e){
+//   console.log('OUTPUT : ',e);
+//   console.log('OUTPUT : ',JSON.stringify(e));
+// }
   }
 
   disconnectedCallback() {
+    window.removeEventListener("scroll", this.scrollNavBarRemove);
     // Clean up
     // window.removeEventListener('scroll', this.checkAndClick.bind(this));
   }
@@ -98,6 +120,21 @@ isInViewport(element) {
     }
 
     window.addEventListener('scroll', this.scrollHandlerBound);
+
+
+    this.scrollNavBarRemove = window.addEventListener('scroll', () => {
+    //   console.log('OUTPUT : scroll eventlistner'+window.scrollY+   '    -> '+this.scrollYNav);
+        if (window.scrollY > this.scrollYNav) {
+            this.template.querySelector('.header')?.classList.add('hidden');
+            this.template.querySelector('.header')?.classList.remove('show');
+        // console.log('down '+JSON.stringify(this.template.querySelector('.nav')?.classList));
+        } else {
+            this.template.querySelector('.header')?.classList.remove('hidden');
+            this.template.querySelector('.header')?.classList.add('show');
+        // console.log('up '+JSON.stringify(this.template.querySelector('.nav')?.classList));
+        }
+        setTimeout(() => { this.scrollYNav = window.scrollY;}, 2000);
+      });
 
     // getIconsMetaData()
     //       .then(result => {
@@ -136,6 +173,19 @@ isInViewport(element) {
       .then((result) => {
         this.jobDetails = result;
         this.jobNames = Object.keys(this.jobDetails);
+      })
+      .catch((err) => {
+        console.log("OUTPUT getJobLists: err ", err);
+        console.log("OUTPUT getJobLists err: ", JSON.stringify(err));
+      });
+
+
+      getVisitorsCountTillNow()
+      .then((result) => {
+       console.log('OUTPUT : getVisitorsCountTillNow string', JSON.stringify(result));
+       console.log('OUTPUT : getVisitorsCountTillNow', (result));
+       this.visitorCount = result?.visitcount != null ? result?.visitcount : 0;
+       
       })
       .catch((err) => {
         console.log("OUTPUT getJobLists: err ", err);
