@@ -21,7 +21,7 @@
 }
 
 .header {
-    display: flex;
+    display: none;
     -webkit-box-pack: justify;
     justify-content: space-between;
     -webkit-box-align: center;
@@ -38,20 +38,36 @@
     filter: none !important;
     pointer-events: auto !important;
     user-select: auto !important;
-    animation: navBarScrollAdd 2s ease-out forwards;
+    /* animation: navBarScrollAdd 2s ease-out; */
+        /* animation-delay: 2s; */
+
 
 }
 
 
+.display-flex{
+    display: flex !important;
+    animation: navBarScrollAdd 2s ease-out;
+}
+
 .header.show {
-    animation: navBarScrollRemove 2s ease-out forwards;
+    animation: navBarScrollAdd 2s ease-out;
+    animation-delay: 0.2s;
+
     /* transform: translateY(-100%); */
     /* display: none; */
 }
 
 
 @keyframes navBarScrollAdd {
-    to {
+    0% {    
+        /* display: flex!important; */
+
+        transform: translateY(-100%);
+    }
+
+    100% {
+        /* display: flex!important; */
         transform: translateY(0);
     }
 }
@@ -73,9 +89,12 @@
 }
 
 .header.hidden {
-    animation: navBarScrollRemove 2s ease-out forwards;
+    /* animation: navBarScrollRemove 2s ease-out forwards; */
     /* transform: translateY(-100%); */
     /* display: none; */
+
+        display: flex !important;
+    animation: navBarScrollRemove 2s ease-out;
 }
 
 @keyframes navBarScrollRemove {
@@ -85,6 +104,7 @@
 
     100% {
         transform: translateY(-100%);
+        display: none;
     }
     
 }

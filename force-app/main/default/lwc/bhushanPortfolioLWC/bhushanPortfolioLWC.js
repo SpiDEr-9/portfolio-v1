@@ -84,10 +84,12 @@ isInViewport(element) {
 
   renderedCallback() {
     console.log("rendercallback -- work"+test);
-
+    
     const mainBody = this.template.querySelector(".main-body");
     if (!this.isFirstRender) {
+        console.log("rendercallback -- work1111");
       this.isFirstRender = true;
+      this.template.querySelector('.header')?.classList.add('display-flex');
     }
 
 
@@ -126,11 +128,11 @@ isInViewport(element) {
     //   console.log('OUTPUT : scroll eventlistner'+window.scrollY+   '    -> '+this.scrollYNav);
         if (window.scrollY > this.scrollYNav) {
             this.template.querySelector('.header')?.classList.add('hidden');
-            this.template.querySelector('.header')?.classList.remove('show');
+            this.template.querySelector('.header')?.classList.remove('display-flex');
         // console.log('down '+JSON.stringify(this.template.querySelector('.nav')?.classList));
         } else {
             this.template.querySelector('.header')?.classList.remove('hidden');
-            this.template.querySelector('.header')?.classList.add('show');
+            this.template.querySelector('.header')?.classList.add('display-flex');
         // console.log('up '+JSON.stringify(this.template.querySelector('.nav')?.classList));
         }
         setTimeout(() => { this.scrollYNav = window.scrollY;}, 2000);
