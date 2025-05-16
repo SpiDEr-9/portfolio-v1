@@ -57,7 +57,8 @@ export default class BhushanPortfolioLWC extends LightningElement {
 
   scrollNavBarRemove
   isEventListenerAdded = false;
-
+  isMobileScreen = false;
+  screenWidthEvent
 //   certishow ='/sfc/servlet.shepherd/version/download/068GA00001EUhPpYAL'
                           certishow;
 
@@ -92,6 +93,7 @@ isInViewport(element) {
 }
 
   renderedCallback() {
+       
     console.log("rendercallback -- work"+test);
     
     const mainBody = this.template.querySelector(".main-body");
@@ -117,9 +119,37 @@ isInViewport(element) {
     window.removeEventListener("scroll", this.scrollNavBarRemove);
     // Clean up
     // window.removeEventListener('scroll', this.checkAndClick.bind(this));
+    window.removeEventListener('resize', this.checkScreenWidth.bind(this));
+    window.removeEventListener(this.screenWidthEvent);
   }
 
+  checkScreenWidth() {
+        this.isMobileScreen = window.innerWidth <= 768;
+        console.log(this.isMobile ? 'Mobile view' : 'Desktop view');
+    }
+
+
+    handleHamClick(event) {
+        console.log('OUTPUT : ham click-- ',event.currentTarget.dataset.name);
+        try {
+        
+        if(!this.template.querySelector('.menu')?.classList?.contains('showHamMenue')){
+            this.template.querySelector('.menu')?.classList.add('showHamMenue');
+        }else{
+            this.template.querySelector('.menu')?.classList.remove('showHamMenue');
+        }    
+        } catch (error) {
+            console.log('OUTPUT : ham click-- ',error);
+            console.log('OUTPUT : ham click-- ',JSON.stringify(error));
+            
+        }
+    }
   connectedCallback() {
+
+    this.checkScreenWidth();
+       this.screenWidthEvent =  window.addEventListener('resize', this.checkScreenWidth.bind(this));
+
+
 
 
         getSfdcCerificationWrapper()
@@ -156,6 +186,16 @@ isInViewport(element) {
 
 
     this.scrollNavBarRemove = window.addEventListener('scroll', () => {
+
+        if(window.scrollY < 75 && this.isMobileScreen){
+
+            this.template.querySelector('.header')?.classList.add('position-relative');
+            console.log('mobile add');
+            
+        }else if(window.scrollY > 75 && this.isMobileScreen){
+            console.log('mobile remove');
+            this.template.querySelector('.header')?.classList.remove('position-relative');
+        }
     //   console.log('OUTPUT : scroll eventlistner'+window.scrollY+   '    -> '+this.scrollYNav);
         if (window.scrollY > this.scrollYNav) {
             // console.log('OUTPUT : scroll down');
