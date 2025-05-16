@@ -5,6 +5,7 @@ import updateVisitCount from "@salesforce/apex/AccountSelector.updateVisitCount"
 import createVisitorIpReocrd from "@salesforce/apex/AccountSelector.createVisitorIpReocrd";
 import getJobLists from "@salesforce/apex/AccountSelector.getJobLists";
 import getVisitorsCountTillNow from "@salesforce/apex/AccountSelector.getVisitorsCountTillNow";
+import getSfdcCerificationWrapper from "@salesforce/apex/AccountSelector.getSfdcCerificationWrapper";
 import getIconsMetaData from "@salesforce/apex/AccountSelector.getIconsMetaData";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -17,6 +18,7 @@ import DDF_PROJECT_SCREEN from "@salesforce/resourceUrl/ddf_screen_for_portfolio
 import CHROME_EXT_CODE_CVG from "@salesforce/resourceUrl/portfolio_chrome_ext_code_coverage";
 import CHROME_EXT_CUSTOM_LABEL_FINDER from "@salesforce/resourceUrl/portfolio_chrome_ext_custom_label_finder";
 import MY_IMAGE from "@salesforce/resourceUrl/bdm_passport_photo";
+import SF_CERTI_LOGOS from "@salesforce/resourceUrl/sf_certification_logo";
 const REQFIELDS = [
   "My_Site_Vist__c.Name",
   "My_Site_Vist__c.Portfolio_Visit__c",
@@ -24,6 +26,7 @@ const REQFIELDS = [
 export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
   myImage = MY_IMAGE;
+  SF_CERTI_LOGOS = SF_CERTI_LOGOS;
   ddf_screen = DDF_PROJECT_SCREEN
   chrome_ext_cc = CHROME_EXT_CODE_CVG
   chrome_ext_clf = CHROME_EXT_CUSTOM_LABEL_FINDER
@@ -53,7 +56,13 @@ export default class BhushanPortfolioLWC extends LightningElement {
   scrollYNav = 0
 
   scrollNavBarRemove
-  
+  isEventListenerAdded = false;
+
+//   certishow ='/sfc/servlet.shepherd/version/download/068GA00001EUhPpYAL'
+                          certishow;
+
+
+certificaritionData
 
 
   checkAndClick() {
@@ -111,6 +120,26 @@ isInViewport(element) {
   }
 
   connectedCallback() {
+
+
+        getSfdcCerificationWrapper()
+          .then((result) => {
+            
+                    // this.certishow = `${this.SF_CERTI_LOGOS}/admin.png`
+            if (result && result.length > 0) {
+               let certifications = result.map((certi) => {
+                return {
+                  ...certi,
+                  certiUrl: `${this.SF_CERTI_LOGOS}/${certi.static_resource_img_path__c}`,
+                }});
+                this.certificaritionData = certifications;
+                logging('OUTPUT : getSfdcCerificationWrapper', JSON.stringify(this.certificaritionData));
+            }
+        
+    }).catch((error) => {
+        console.log('err : getSfdcCerificationWrapper', error);
+        console.log('err : getSfdcCerificationWrapper', JSON.stringify(error));})
+    
     console.log("OUTPUT : connectedCallback");
     try {
         
@@ -124,14 +153,22 @@ isInViewport(element) {
     window.addEventListener('scroll', this.scrollHandlerBound);
 
 
+
+
     this.scrollNavBarRemove = window.addEventListener('scroll', () => {
     //   console.log('OUTPUT : scroll eventlistner'+window.scrollY+   '    -> '+this.scrollYNav);
         if (window.scrollY > this.scrollYNav) {
-            this.template.querySelector('.header')?.classList.add('hidden');
+            // console.log('OUTPUT : scroll down');
+            
+            this.template.querySelector('.header')?.classList.add('hidden','show');
             this.template.querySelector('.header')?.classList.remove('display-flex');
+
+            
         // console.log('down '+JSON.stringify(this.template.querySelector('.nav')?.classList));
         } else {
-            this.template.querySelector('.header')?.classList.remove('hidden');
+            // console.log('OUTPUT : scroll up');
+            
+            this.template.querySelector('.header')?.classList.remove('hidden','show');
             this.template.querySelector('.header')?.classList.add('display-flex');
         // console.log('up '+JSON.stringify(this.template.querySelector('.nav')?.classList));
         }
@@ -184,8 +221,8 @@ isInViewport(element) {
 
       getVisitorsCountTillNow()
       .then((result) => {
-       console.log('OUTPUT : getVisitorsCountTillNow string', JSON.stringify(result));
-       console.log('OUTPUT : getVisitorsCountTillNow', (result));
+    //    console.log('OUTPUT : getVisitorsCountTillNow string', JSON.stringify(result));
+    //    console.log('OUTPUT : getVisitorsCountTillNow', (result));
        this.visitorCount = result?.visitcount != null ? result?.visitcount : 0;
        
       })
@@ -197,8 +234,8 @@ isInViewport(element) {
 
   getVisitorLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log('OUTPUT : position',position);
-      console.log('OUTPUT : position',JSON.stringify(position));
+    //   console.log('OUTPUT : position',position);
+    //   console.log('OUTPUT : position',JSON.stringify(position));
       this.geoLocation = (position);
     });
   }
@@ -229,7 +266,7 @@ isInViewport(element) {
           Visitors_Location__Longitude__s: this.geoLocation?.coords?.longitude,
           Visitors_Location__Latitude__s : this.geoLocation?.coords?.latitude
         };
-        console.log('OUTPUT : fields location obj'+JSON.stringify(fields));
+        // console.log('OUTPUT : fields location obj'+JSON.stringify(fields));
         // const recordInput = {apiName: 'Site_Visit_Ip_Tracker__c',fields};
         createVisitorIpReocrd({ ipObj: JSON.stringify(fields) })
           .then((record) => {
@@ -384,5 +421,22 @@ isInViewport(element) {
       // section.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to it
     // }/
     // console.log("OUTPUT : ", JSON.stringify(this.currentJobDetails));
+  }
+
+
+  handleSocialLinkClick(event){
+    const socialLink = event.currentTarget.dataset.name;
+    console.log('OUTPUT : social link-- ',socialLink);
+    let urlMap = {
+        'github' : 'https://github.com/SpiDEr-9',
+        'linkedin':'https://www.linkedin.com/in/bdmhatre/',
+        'instagram': 'https://www.instagram.com/bhushan_mhatre_45/'
+    }
+    
+    if (urlMap[socialLink]) {
+      window.open(urlMap[socialLink], "_blank");
+    } else {
+      console.error("URL not found for the clicked icon.");
+    }
   }
 }

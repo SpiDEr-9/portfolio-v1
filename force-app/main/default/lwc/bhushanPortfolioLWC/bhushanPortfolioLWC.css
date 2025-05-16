@@ -47,31 +47,44 @@
 
 .display-flex{
     display: flex !important;
-    animation: navBarScrollAdd 2s ease-out;
+    animation: navBarScrollAdd 0.5s ease-out;
 }
 
-.header.show {
+/* .header.show {
     animation: navBarScrollAdd 2s ease-out;
     animation-delay: 0.2s;
-
-    /* transform: translateY(-100%); */
-    /* display: none; */
+} */
+.show {
+    /* display: flex; */
 }
 
 
 @keyframes navBarScrollAdd {
     0% {    
-        /* display: flex!important; */
-
         transform: translateY(-100%);
     }
-
     100% {
-        /* display: flex!important; */
         transform: translateY(0);
     }
 }
 
+
+.header.hidden {
+    animation: navBarScrollRemove 2s ease-out;
+    animation-delay: 0.2s;
+    /* display: flex; */
+}
+
+@keyframes navBarScrollRemove {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+        /* opacity: 0; */
+    }
+    
+}
 .nav {
     height: 5rem;
     display: flex;
@@ -88,26 +101,7 @@
 
 }
 
-.header.hidden {
-    /* animation: navBarScrollRemove 2s ease-out forwards; */
-    /* transform: translateY(-100%); */
-    /* display: none; */
 
-        display: flex !important;
-    animation: navBarScrollRemove 2s ease-out;
-}
-
-@keyframes navBarScrollRemove {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-100%);
-        display: none;
-    }
-    
-}
 
 .logo {
     width: 3.5rem;
@@ -164,6 +158,11 @@ ol li:nth-child(3) {
 ol li:nth-child(4) {
     animation-delay: 0.7s;
 }
+
+ol li:nth-child(5) {
+    animation-delay: 0.9s;
+}
+
 
 .main-tabs li::before {
     content: "0"counter(list-counter) ". ";
@@ -499,8 +498,13 @@ section.work-section{
 .work-section-number::before{
     content: "03" ".";
 }
-.contactme-section-number::before{
+
+
+.certification-section-number::before{
     content: "04" ".";
+}
+.contactme-section-number::before{
+    content: "05" ".";
 }
 
 .secion-heading::after {
@@ -676,6 +680,17 @@ section.work-section{
 
 .job-description-info>h3>span{
     color: var(--green);
+}
+
+.certification-label{
+
+        align-items: center;
+    font-weight: 700;
+    color: var(--lightest-slate);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    margin-bottom: 0.5em;
+    text-align: center;
 }
 
 
@@ -1160,6 +1175,34 @@ mix-blend-mode: screen;
     text-align: center;
     align-items: center ;
 }
+
+
+.certification-image{
+    width: 10rem;
+    margin: auto;
+    margin-bottom: 1rem;cursor: pointer;
+    transition: transform 1s ease;
+}
+.certification-image:hover{
+    outline: none;
+    cursor: pointer;
+    /* box-shadow: 4px 4px 0px 0px var(--green); */
+    transform: scale(1.1);
+}
+
+.certification-div{
+    margin-bottom: 3rem;
+    display: grid;
+}
+
+
+.get-in-touch.certifications{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+
 /* .mix-blend-mode::before{
     content: "";
     position: absolute;
