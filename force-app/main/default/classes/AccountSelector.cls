@@ -2,7 +2,7 @@
  * @description       :
  * @author            : BFL Developer
  * @group             :
- * @last modified on  : 04-12-2025
+ * @last modified on  : 05-17-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public without sharing class AccountSelector {
@@ -59,10 +59,15 @@ public without sharing class AccountSelector {
     
     @AuraEnabled
     public static String createVisitorIpReocrd(String ipObj) {
+        try{
+
         Site_Visit_Ip_Tracker__c ipObjectToInsert = (Site_Visit_Ip_Tracker__c) JSON.deserialize(ipObj, Site_Visit_Ip_Tracker__c.class);
         insert ipObjectToInsert;
         
         return 'yes';
+        }catch(Exception e){
+            throw new AuraHandledException('errr create bdm-----'+e.getMessage());
+        }
         
         
     }
@@ -102,6 +107,13 @@ public without sharing class AccountSelector {
         
     }
 
+    @AuraEnabled
+    public static AggregateResult getVisitorsCountTillNow(){
+        return [select COUNT_DISTINCT(Visitors_Ip__c) visitcount from Site_Visit_Ip_Tracker__c]??null;
+    }
+
+
+
 
 
     public class jobDescriptionWrapper {
@@ -118,8 +130,49 @@ public without sharing class AccountSelector {
         @AuraEnabled public String endDate { get; set; }
         @AuraEnabled public String position { get; set; }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    @AuraEnabled
+    public static List<Certification_Portfolio__mdt> getSfdcCerificationWrapper() {
+    //    return [select id,DistributionPublicUrl from ContentDistribution ]??null;
+       return [select Id,Sequence_Number__c,Title__c,Certificate_URL__c,static_resource_img_path__c from Certification_Portfolio__mdt  where Is_Active__c =true order by Sequence_Number__c asc LIMIT 200 ]??null;
+    }
         
+
+
+
+
+    public class sfdcCerificationWrapper {
+        // @AuraEnabled public List<String> jobTabs { get; set; }
     
+        @AuraEnabled public String title { get; set; }
+        @AuraEnabled public String endDate { get; set; }
+        @AuraEnabled public String position { get; set; }
+    }
+
+    
+
+    @AuraEnabled
+    public static void saveFeedBack(String feedBackJson) {
+        try{
+            FeedBack_Data__c feedBackObjectToInsert = (FeedBack_Data__c) JSON.deserialize(feedBackJson, FeedBack_Data__c.class);
+            insert feedBackObjectToInsert;
+        }catch(Exception e){
+            throw new AuraHandledException('errr create bdm-----'+e.getMessage());
+        }
+        
+    }
+      
     
         
 }
