@@ -205,3 +205,18 @@ input:focus, textarea:focus {
         font-size: 0.98em;
     }
 }
+
+.slds-notify--toast
+{background: linear-gradient(17deg, #090E17, #03BFAE, #000000) !important;
+    border-radius: 2rem 0.2rem 2rem 0.2rem !important;
+    box-shadow: 9px 8px 18px #73f9ffa3 !important;
+}
+
+.slds-list--inline{
+
+    width: 100% !important;
+    margin: auto !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+}

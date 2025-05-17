@@ -1,10 +1,17 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-17-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
   <div class="feedback-form">
     <h2>User Feedback</h2>
     <form onsubmit={handleSubmit} class="feedback-grid">
       <div class="form-group">
         <label for="name">Name</label>
-        <input id="name" name="name" type="text" placeholder="Enter your name" onchange={handleChange} />
+        <input id="name" required name="name" type="text" placeholder="Enter your name" onchange={handleChange} />
       </div>
       <div class="form-group">
         <label for="email">Email</label>
@@ -24,11 +31,11 @@
       </div>
       <div class="form-group">
         <label for="reason">Contacting Me For</label>
-        <input id="reason" name="reason" type="text" placeholder="Reason for contacting" onchange={handleChange} />
+        <input id="reason" required name="reason" type="text" placeholder="Reason for contacting" onchange={handleChange} />
       </div>
       <div class="form-group full-width">
-        <label for="work">Work if Any</label>
-        <textarea id="work" name="work" placeholder="Describe the work (if any)" onchange={handleChange}></textarea>
+        <label for="work">Description</label>
+        <textarea id="work" name="work" placeholder="Describe" onchange={handleChange}></textarea>
       </div>
       <div class="form-group full-width">
         <label for="linkedin">LinkedIn Profile</label>
