@@ -7,12 +7,10 @@ import getJobLists from "@salesforce/apex/AccountSelector.getJobLists";
 import getVisitorsCountTillNow from "@salesforce/apex/AccountSelector.getVisitorsCountTillNow";
 import getSfdcCerificationWrapper from "@salesforce/apex/AccountSelector.getSfdcCerificationWrapper";
 import getIconsMetaData from "@salesforce/apex/AccountSelector.getIconsMetaData";
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import test from '@salesforce/label/c.TEST_LABEL';
+import test from "@salesforce/label/c.TEST_LABEL";
 // Example :- import greeting from '@salesforce/label/c.greeting';
-
-
 
 import DDF_PROJECT_SCREEN from "@salesforce/resourceUrl/ddf_screen_for_portfolio";
 import CHROME_EXT_CODE_CVG from "@salesforce/resourceUrl/portfolio_chrome_ext_code_coverage";
@@ -27,9 +25,9 @@ export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
   myImage = MY_IMAGE;
   SF_CERTI_LOGOS = SF_CERTI_LOGOS;
-  ddf_screen = DDF_PROJECT_SCREEN
-  chrome_ext_cc = CHROME_EXT_CODE_CVG
-  chrome_ext_clf = CHROME_EXT_CUSTOM_LABEL_FINDER
+  ddf_screen = DDF_PROJECT_SCREEN;
+  chrome_ext_cc = CHROME_EXT_CODE_CVG;
+  chrome_ext_clf = CHROME_EXT_CUSTOM_LABEL_FINDER;
   skills = [
     "Aura/LWC/VF Pages",
     "Apex/Triggers",
@@ -52,181 +50,165 @@ export default class BhushanPortfolioLWC extends LightningElement {
   observer;
   visitorCount = 0;
 
-  scrollHandlerBound = null
-  scrollYNav = 0
+  scrollHandlerBound = null;
+  scrollYNav = 0;
 
-  scrollNavBarRemove
+  scrollNavBarRemove;
   isEventListenerAdded = false;
   isMobileScreen = false;
-  screenWidthEvent
-//   certishow ='/sfc/servlet.shepherd/version/download/068GA00001EUhPpYAL'
-                          certishow;
+  screenWidthEvent;
+  certishow;
+  certificaritionData;
+  showFeedBackForm = true;
 
 
-certificaritionData
+  handleConnectWithMeClick(event) {
+    const clickedElement = event.currentTarget.dataset.name;
+    this.showFeedBackForm = clickedElement == 'connectwithme' ? true : false;
 
+}
+
+closeFeedBackForm(){
+    this.showFeedBackForm = false;
+}
 
   checkAndClick() {
-    const target  = this.template.querySelector(`.job-div[data-id="${this.jobNames[0]}"]`);
+    const target = this.template.querySelector(
+      `.job-div[data-id="${this.jobNames[0]}"]`
+    );
     // const currentSection = this.template.querySelector('.animate-on-scroll');
     if (target && this.isInViewport(target)) {
-        target.click();
-        window.removeEventListener('scroll', this.scrollHandlerBound); // prevent repeated clicks
+      target.click();
+      window.removeEventListener("scroll", this.scrollHandlerBound); // prevent repeated clicks
     }
+  }
 
-    // if (currentSection && this.isInViewport(currentSection)) {
-    //     currentSection.getElementsByClassName('content').classList.add('show-now')
-    // }
-}
-
-isInViewport(element) {
+  isInViewport(element) {
     const rect = element.getBoundingClientRect();
-    // console.log('OUTPUT : rect' +rect.top+'   bot- '+rect.bottom);
-    // console.log('OUTPUT : windo' +window.innerHeight+'   width- '+window.innerWidth);
-    // console.log('-----------------------------------------------------------------------');
+
     return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-}
+  }
 
   renderedCallback() {
-       
-    console.log("rendercallback -- work"+test);
-    
+    console.log("rendercallback -- work" + test);
+
     const mainBody = this.template.querySelector(".main-body");
     if (!this.isFirstRender) {
-        console.log("rendercallback -- work1111");
+      console.log("rendercallback -- work1111");
       this.isFirstRender = true;
-      this.template.querySelector('.header')?.classList.add('display-flex');
+      this.template.querySelector(".header")?.classList.add("display-flex");
     }
-
-
-    // let navbar = this.template.querySelector('.nav');
-    // console.log('OUTPUT : navbar--',JSON.stringify(navbar));
-// try{
-
-    
-// }catch(e){
-//   console.log('OUTPUT : ',e);
-//   console.log('OUTPUT : ',JSON.stringify(e));
-// }
   }
 
   disconnectedCallback() {
     window.removeEventListener("scroll", this.scrollNavBarRemove);
-    // Clean up
-    // window.removeEventListener('scroll', this.checkAndClick.bind(this));
-    window.removeEventListener('resize', this.checkScreenWidth.bind(this));
+    window.removeEventListener("resize", this.checkScreenWidth.bind(this));
     window.removeEventListener(this.screenWidthEvent);
   }
 
   checkScreenWidth() {
-        this.isMobileScreen = window.innerWidth <= 768;
-        console.log(this.isMobile ? 'Mobile view' : 'Desktop view');
-    }
+    this.isMobileScreen = window.innerWidth <= 768;
+    console.log(this.isMobile ? "Mobile view" : "Desktop view");
+  }
 
-
-    handleHamClick(event) {
-        console.log('OUTPUT : ham click-- ',event.currentTarget.dataset.name);
-        try {
-        
-        if(!this.template.querySelector('.menu')?.classList?.contains('showHamMenue')){
-            this.template.querySelector('.menu')?.classList.add('showHamMenue');
-        }else{
-            this.template.querySelector('.menu')?.classList.remove('showHamMenue');
-        }    
-        } catch (error) {
-            console.log('OUTPUT : ham click-- ',error);
-            console.log('OUTPUT : ham click-- ',JSON.stringify(error));
-            
-        }
-    }
-  connectedCallback() {
-
-    this.checkScreenWidth();
-       this.screenWidthEvent =  window.addEventListener('resize', this.checkScreenWidth.bind(this));
-
-
-
-
-        getSfdcCerificationWrapper()
-          .then((result) => {
-            
-                    // this.certishow = `${this.SF_CERTI_LOGOS}/admin.png`
-            if (result && result.length > 0) {
-               let certifications = result.map((certi) => {
-                return {
-                  ...certi,
-                  certiUrl: `${this.SF_CERTI_LOGOS}/${certi.static_resource_img_path__c}`,
-                }});
-                this.certificaritionData = certifications;
-                logging('OUTPUT : getSfdcCerificationWrapper', JSON.stringify(this.certificaritionData));
-            }
-        
-    }).catch((error) => {
-        console.log('err : getSfdcCerificationWrapper', error);
-        console.log('err : getSfdcCerificationWrapper', JSON.stringify(error));})
-    
-    console.log("OUTPUT : connectedCallback");
+  handleHamClick(event) {
+    console.log("OUTPUT : ham click-- ", event.currentTarget.dataset.name);
     try {
-        
-        this.scrollHandlerBound = this.checkAndClick.bind(this)
+      if (
+        !this.template
+          .querySelector(".menu")
+          ?.classList?.contains("showHamMenue")
+      ) {
+        this.template.querySelector(".menu")?.classList.add("showHamMenue");
+      } else {
+        this.template.querySelector(".menu")?.classList.remove("showHamMenue");
+      }
     } catch (error) {
-        console.log('cc catch scroll--'+error);
-        console.log('cc catch scroll--'+JSON.stringify(error));
-        
+      console.log("OUTPUT : ham click-- ", error);
+      console.log("OUTPUT : ham click-- ", JSON.stringify(error));
     }
+  }
+  connectedCallback() {
+    this.checkScreenWidth();
+    this.screenWidthEvent = window.addEventListener(
+      "resize",
+      this.checkScreenWidth.bind(this)
+    );
 
-    window.addEventListener('scroll', this.scrollHandlerBound);
-
-
-
-
-    this.scrollNavBarRemove = window.addEventListener('scroll', () => {
-
-        if(window.scrollY < 75 && this.isMobileScreen){
-
-            this.template.querySelector('.header')?.classList.add('position-relative');
-            console.log('mobile add');
-            
-        }else if(window.scrollY > 75 && this.isMobileScreen){
-            console.log('mobile remove');
-            this.template.querySelector('.header')?.classList.remove('position-relative');
+    getSfdcCerificationWrapper()
+      .then((result) => {
+        // this.certishow = `${this.SF_CERTI_LOGOS}/admin.png`
+        if (result && result.length > 0) {
+          let certifications = result.map((certi) => {
+            return {
+              ...certi,
+              certiUrl: `${this.SF_CERTI_LOGOS}/${certi.static_resource_img_path__c}`,
+            };
+          });
+          this.certificaritionData = certifications;
+          logging(
+            "OUTPUT : getSfdcCerificationWrapper",
+            JSON.stringify(this.certificaritionData)
+          );
         }
-    //   console.log('OUTPUT : scroll eventlistner'+window.scrollY+   '    -> '+this.scrollYNav);
-        if (window.scrollY > this.scrollYNav) {
-            // console.log('OUTPUT : scroll down');
-            
-            this.template.querySelector('.header')?.classList.add('hidden','show');
-            this.template.querySelector('.header')?.classList.remove('display-flex');
-
-            
-        // console.log('down '+JSON.stringify(this.template.querySelector('.nav')?.classList));
-        } else {
-            // console.log('OUTPUT : scroll up');
-            
-            this.template.querySelector('.header')?.classList.remove('hidden','show');
-            this.template.querySelector('.header')?.classList.add('display-flex');
-        // console.log('up '+JSON.stringify(this.template.querySelector('.nav')?.classList));
-        }
-        setTimeout(() => { this.scrollYNav = window.scrollY;}, 2000);
+      })
+      .catch((error) => {
+        console.log("err : getSfdcCerificationWrapper", error);
+        console.log("err : getSfdcCerificationWrapper", JSON.stringify(error));
       });
 
-    // getIconsMetaData()
-    //       .then(result => {
-    //         // console.log('OUTPUT : ', JSON.stringify(result));
-    //         this.iconsHref = result
-    //         this.socialIcons  = result
+    console.log("OUTPUT : connectedCallback");
+    try {
+      this.scrollHandlerBound = this.checkAndClick.bind(this);
+    } catch (error) {
+      console.log("cc catch scroll--" + error);
+      console.log("cc catch scroll--" + JSON.stringify(error));
+    }
 
-    //         console.log('OUTPUT : getIconsMetaData', JSON.stringify(result));
-    //       }).catch(err => {
+    window.addEventListener("scroll", this.scrollHandlerBound);
 
-    //         console.log('OUTPUT : ', JSON.stringify(err));
-    //       })
-    // console.log('OUTPUT : cc---', this.visitCounterRecordId);
+    this.scrollNavBarRemove = window.addEventListener("scroll", () => {
+      if (window.scrollY < 75 && this.isMobileScreen) {
+        this.template
+          .querySelector(".header")
+          ?.classList.add("position-relative");
+        console.log("mobile add");
+      } else if (window.scrollY > 75 && this.isMobileScreen) {
+        console.log("mobile remove");
+        this.template
+          .querySelector(".header")
+          ?.classList.remove("position-relative");
+      }
+      //   console.log('OUTPUT : scroll eventlistner'+window.scrollY+   '    -> '+this.scrollYNav);
+      if (window.scrollY > this.scrollYNav) {
+        // console.log('OUTPUT : scroll down');
+
+        this.template.querySelector(".header")?.classList.add("hidden", "show");
+        this.template
+          .querySelector(".header")
+          ?.classList.remove("display-flex");
+
+        // console.log('down '+JSON.stringify(this.template.querySelector('.nav')?.classList));
+      } else {
+        // console.log('OUTPUT : scroll up');
+
+        this.template
+          .querySelector(".header")
+          ?.classList.remove("hidden", "show");
+        this.template.querySelector(".header")?.classList.add("display-flex");
+        // console.log('up '+JSON.stringify(this.template.querySelector('.nav')?.classList));
+      }
+      setTimeout(() => {
+        this.scrollYNav = window.scrollY;
+      }, 2000);
+    });
+
     getVisitCount({ visitId: this.visitCounterRecordId })
       .then((result) => {
         // console.log('OUTPUT : ', JSON.stringify(result));
@@ -258,13 +240,11 @@ isInViewport(element) {
         console.log("OUTPUT getJobLists err: ", JSON.stringify(err));
       });
 
-
-      getVisitorsCountTillNow()
+    getVisitorsCountTillNow()
       .then((result) => {
-    //    console.log('OUTPUT : getVisitorsCountTillNow string', JSON.stringify(result));
-    //    console.log('OUTPUT : getVisitorsCountTillNow', (result));
-       this.visitorCount = result?.visitcount != null ? result?.visitcount : 0;
-       
+        //    console.log('OUTPUT : getVisitorsCountTillNow string', JSON.stringify(result));
+        //    console.log('OUTPUT : getVisitorsCountTillNow', (result));
+        this.visitorCount = result?.visitcount != null ? result?.visitcount : 0;
       })
       .catch((err) => {
         console.log("OUTPUT getJobLists: err ", err);
@@ -273,10 +253,10 @@ isInViewport(element) {
   }
 
   getVisitorLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-    //   console.log('OUTPUT : position',position);
-    //   console.log('OUTPUT : position',JSON.stringify(position));
-      this.geoLocation = (position);
+    navigator?.geolocation?.getCurrentPosition((position) => {
+      //   console.log('OUTPUT : position',position);
+      //   console.log('OUTPUT : position',JSON.stringify(position));
+      this.geoLocation = position;
     });
   }
 
@@ -297,46 +277,43 @@ isInViewport(element) {
           appName: navigator.appName,
         });
         this.userIPAddress = Http.responseText;
-        console.log('OUTPUT : location longi-- ',this.geoLocation?.coords?.latitude );
+        console.log(
+          "OUTPUT : location longi-- ",
+          this.geoLocation?.coords?.latitude
+        );
         const fields = {
           Visitors_Device_Info__c: deviceInfo,
           Visitor_Number__c: this.currentVisit,
           Visitors_Ip__c: this.userIPAddress,
           Which_Site__c: "portfolio",
           Visitors_Location__Longitude__s: this.geoLocation?.coords?.longitude,
-          Visitors_Location__Latitude__s : this.geoLocation?.coords?.latitude
+          Visitors_Location__Latitude__s: this.geoLocation?.coords?.latitude,
         };
         // console.log('OUTPUT : fields location obj'+JSON.stringify(fields));
         // const recordInput = {apiName: 'Site_Visit_Ip_Tracker__c',fields};
         createVisitorIpReocrd({ ipObj: JSON.stringify(fields) })
           .then((record) => {
-            console.log('ip tracker Record created successfully. Id:', record);
+            console.log("ip tracker Record created successfully. Id:", record);
           })
           .catch((error) => {
+            let msg = error.body.message;
+            let err = msg
+              .substring(msg.indexOf(":"), msg.lastIndexOf(":"))
+              .replace("&quot;", '"');
 
-                    let msg = error.body.message
-                    let err  = (msg.substring(msg.indexOf(":"),
-                    msg.lastIndexOf(":"))).replace("&quot;", '"');
+            this.dispatchEvent(
+              new ShowToastEvent({
+                title: "Error",
+                message: err,
+                variant: "error",
+              })
+            );
 
-             this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Error',
-                        message: err,
-                        variant: 'error'
-                    }));
- 
             //let test = this.error.replace("&quot;, ", "")
-           // console.log('OUTPUT : test',test);
+            // console.log('OUTPUT : test',test);
 
-
-            console.log(
-              "Error creating ip tracker  record:",
-              err
-            );
-            console.log(
-              "Error creating ip tracker  record:",
-              err
-            );
+            console.log("Error creating ip tracker  record:", err);
+            console.log("Error creating ip tracker  record:", err);
             console.log(
               "Error creating ip tracker  record:",
               JSON.stringify(err)
@@ -349,11 +326,6 @@ isInViewport(element) {
   }
 
   handleLiHover(event) {
-    // const liText = event.target.innerText;
-    // const liHtml = event.target.innerHTML;
-
-    // console.log('Hovered text:', liText);
-    // console.log('Hovered HTML:', liHtml);
     const li = event.target;
     const text = li.innerText;
     var final = [];
@@ -389,51 +361,9 @@ isInViewport(element) {
     // const liHtml = event.target.innerHTML;
   }
 
-  //   handleJobClick(event){
-  //     let selectedJob = event.currentTarget.dataset.id;
-  //     let allJobs = this.template.querySelectorAll('.job-div');
-  //     allJobs.forEach(job=>{
-  //       let cssClasses = JSON.stringify(job.classList);
-  //       if(cssClasses.includes('selected-job') && job.dataset.id != selectedJob){
-  //         job.classList.remove('selected-job');
-  //       }
-  //     })
-
-  //     this.template.querySelector(`.job-div[data-id="${selectedJob}"]`).classList.add('selected-job');
-  //     let jobDescElement = this.template.querySelector('.job-description-info');
-  //     jobDescElement.classList.remove('job-description-info');
-  //     jobDescElement.classList.add('job-description-info');
-  //   }
-
-  // handleMouseOver() {
-  //   const items = this.template.querySelectorAll('.about-skills li');
-  //   items.forEach((li) => {
-  //     // li.classList.add('hovered');
-  //     console.log('OUTPUT : hovered----'+JSON.stringify(li));
-  //     console.log('OUTPUT : hovered----'+JSON.stringify(li.innerHTML));
-  //     console.log('OUTPUT : hovered----'+JSON.stringify(li.innerText));
-  //   });
-  // }
-
-  // handleMouseOut() {
-  //   const items = this.template.querySelectorAll('.about-skills li');
-  //   items.forEach((li) => {
-  //     // li.classList.remove('hovered');
-  //     console.log('OUTPUT : OUT----'+JSON.stringify(li.innerText));
-  //     console.log('OUTPUT : OUT----'+JSON.stringify(li.innerHTML));
-  //   });
-  // }
-
   handleJobClick(event) {
-      event.preventDefault(); 
-    // try {
-    //     window.removeEventListener("scroll", this.scrollHandlerBound);
-        
-    // } catch (error) {
-    //     console.log("OUTPUT : event listner remove", error);
-    //     console.log("OUTPUT : event listner remove", JSON.stringify(error));
-        
-    // }
+    event.preventDefault();
+
     const clickedElement = event.currentTarget;
     // console.log('OUTPUT : --- value-- ',clickedElement.dataset.id);
     let jobDescElement = this.template.querySelector(".job-description-info");
@@ -446,9 +376,6 @@ isInViewport(element) {
     border.style.top = `${topOffset}px`;
     border.style.height = `${height}px`;
 
-    // Optional: scroll into view
-    // clickedElement.scrollIntoView({ behavior: "smooth" });
-
     void jobDescElement.offsetWidth; //void div.offsetWidth; forces a reflow, so the animation can start fresh.
 
     this.currentJobDetails = this.jobDetails[clickedElement.dataset.id];
@@ -456,23 +383,18 @@ isInViewport(element) {
       jobDescElement.classList.add("job-description-info"); //requestAnimationFrame() waits for the DOM to update before reapplying the class.
     });
 
-    const section = this.template.querySelector('#Experience').click(); // Change ID as needed
-    // if (section) {
-      // section.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to it
-    // }/
-    // console.log("OUTPUT : ", JSON.stringify(this.currentJobDetails));
+    const section = this.template.querySelector("#Experience").click(); // Change ID as needed
   }
 
-
-  handleSocialLinkClick(event){
+  handleSocialLinkClick(event) {
     const socialLink = event.currentTarget.dataset.name;
-    console.log('OUTPUT : social link-- ',socialLink);
+    console.log("OUTPUT : social link-- ", socialLink);
     let urlMap = {
-        'github' : 'https://github.com/SpiDEr-9',
-        'linkedin':'https://www.linkedin.com/in/bdmhatre/',
-        'instagram': 'https://www.instagram.com/bhushan_mhatre_45/'
-    }
-    
+      github: "https://github.com/SpiDEr-9",
+      linkedin: "https://www.linkedin.com/in/bdmhatre/",
+      instagram: "https://www.instagram.com/bhushan_mhatre_45/",
+    };
+
     if (urlMap[socialLink]) {
       window.open(urlMap[socialLink], "_blank");
     } else {

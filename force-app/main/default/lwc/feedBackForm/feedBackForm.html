@@ -1,0 +1,43 @@
+<template>
+  <div class="feedback-form">
+    <h2>User Feedback</h2>
+    <form onsubmit={handleSubmit} class="feedback-grid">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Enter your name" onchange={handleChange} />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Enter your email" onchange={handleChange} />
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input id="mobile" name="mobile" type="tel" placeholder="Enter your mobile number" onchange={handleChange} />
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input id="location" name="location" type="text" placeholder="Enter your location" onchange={handleChange} />
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input id="company" name="company" type="text" placeholder="Enter your company" onchange={handleChange} />
+      </div>
+      <div class="form-group">
+        <label for="reason">Contacting Me For</label>
+        <input id="reason" name="reason" type="text" placeholder="Reason for contacting" onchange={handleChange} />
+      </div>
+      <div class="form-group full-width">
+        <label for="work">Work if Any</label>
+        <textarea id="work" name="work" placeholder="Describe the work (if any)" onchange={handleChange}></textarea>
+      </div>
+      <div class="form-group full-width">
+        <label for="linkedin">LinkedIn Profile</label>
+        <input id="linkedin" name="linkedin" type="url" placeholder="Paste your LinkedIn profile URL" onchange={handleChange} />
+      </div>
+      <div class="form-group full-width button-row">
+        <button type="submit" class="submit-btn">Submit</button>
+        <button type="button" class="cancel-btn" onclick={handleCancel}>Cancel</button>
+      </div>
+    </form>
+  </div>
+</template>

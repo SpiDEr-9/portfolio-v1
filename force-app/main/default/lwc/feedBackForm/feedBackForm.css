@@ -1,0 +1,207 @@
+/* Match BhushanPortfolioLWC theme: dark background, green accent, rounded, modern */
+.feedback-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem 1.5rem;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px 0 rgba(100,255,218,0.08);
+    background: rgba(17,34,64,0.98);
+    font-family: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
+    color: #ccd6f6;
+    opacity: 0;
+    transform: scale(0.96) translateY(32px) rotateX(8deg);
+    filter: blur(6px);
+    animation: coolFadeInUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes coolFadeInUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(32px) rotateX(8deg);
+        filter: blur(6px);
+    }
+    60% {
+        opacity: 0.7;
+        transform: scale(1.01) translateY(-6px) rotateX(-2deg);
+        filter: blur(1.5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+        filter: blur(0);
+    }
+}
+
+.feedback-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #64ffda;
+    font-size: 1.75rem;
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    letter-spacing: 1px;
+}
+
+.feedback-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    color: #64ffda;
+    font-weight: 700;
+    font-size: 1.08em;
+    margin-bottom: 0.4em;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 8px rgba(100,255,218,0.10);
+    transition: color 0.2s;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    display: inline-block;
+    background: linear-gradient(90deg, rgba(100,255,218,0.08) 0%, rgba(17,34,64,0.0) 100%);
+    border-radius: 4px;
+}
+label:focus-within, label:hover {
+    color: #00bfae;
+    background: linear-gradient(90deg, rgba(100,255,218,0.18) 0%, rgba(17,34,64,0.0) 100%);
+}
+
+input, textarea {
+    background: #112240;
+    color: #ccd6f6;
+    border: 1px solid #64ffda;
+    border-radius: 8px;
+    padding: 0.7em 1em;
+    font-size: 1em;
+    transition: border 0.2s;
+    font-family: inherit;
+    resize: vertical;
+}
+
+input:focus, textarea:focus {
+    border: 1.5px solid #64ffda;
+    outline: none;
+}
+
+.submit-btn {
+    background: linear-gradient(90deg, #64ffda 0%, #233554 100%);
+    color: #0a192f;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px 0 rgba(100,255,218,0.10);
+    padding: 1em 2em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin: 0 auto;
+    display: block;
+}
+.submit-btn:hover {
+    background: #0a192f;
+    color: #64ffda;
+    border: 1px solid #64ffda;
+}
+
+.button-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cancel-btn {
+    background: transparent;
+    color: #ccd6f6;
+    border: 2px solid #64ffda;
+    border-radius: 8px;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    margin-left: 0.5em;
+}
+.cancel-btn:hover, .cancel-btn:focus {
+    background: #112240;
+    color: #64ffda;
+    border-color: #ccd6f6;
+}
+
+@media (max-width: 900px) {
+    .feedback-form {
+        max-width: 98vw;
+        padding: 1.2rem 0.5rem;
+        border-radius: 12px;
+        margin: 1rem auto;
+        height: 100vh;
+        min-height: 100vh;
+        box-sizing: border-box;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .feedback-form h2 {
+        font-size: 1.2rem;
+    }
+    .feedback-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        flex: 1 1 auto;
+    }
+    .form-group {
+        margin-bottom: 0.7rem;
+    }
+    .submit-btn {
+        font-size: 1em;
+        padding: 0.8em 1.2em;
+        width: 100%;
+        min-width: 0;
+    }
+    input, textarea {text-align: center;
+        font-size: 1em;
+        padding: 0.7em 0.7em;
+    }
+    label {
+        font-size: 1em;
+        padding-left: 1px;
+        text-align: center;
+    }
+}
+@media (max-width: 500px) {
+    .feedback-form {
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
+        height: 80vh;
+        min-height: 80vh;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+    .feedback-form h2 {
+        font-size: 1rem;
+    }
+    .submit-btn {
+        font-size: 0.95em;
+        padding: 0.7em 0.7em;
+    }
+    input, textarea {
+        font-size: 0.98em;text-align: center;
+        padding: 0.6em 0.5em;
+    }
+    label {
+        text-align: center;
+        font-size: 0.98em;
+    }
+}

@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 05-16-2025
+  @last modified on  : 05-17-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -430,7 +430,7 @@
 
                 </div><br><br>
                 <div class="connect-me-div">
-                    <button class="connect-me-btn">Connect With Me</button>
+                    <button class="connect-me-btn" onclick={handleConnectWithMeClick} data-name="connectwithme">Connect With Me</button>
                 </div>
             </div>
 
@@ -443,4 +443,22 @@
         </section>
 
     </div>
+
+
+
+     <template if:true={showFeedBackForm}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-07" aria-modal="true"
+            aria-describedby="modal-content-id-12023" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="lookup_window_rec uploaddoc" id="modal-content-id-264">
+                <div class="slds-p-around_small center_item">
+                <c-feed-back-form  onclearform={closeFeedBackForm}></c-feed-back-form>
+                </div>
+                <!-- <footer class="slds-modal__footer center_footer">
+                    <lightning-button variant="brand-outline" data-name='canclefeedbackform' onclick={handleConnectWithMeClick} label="Cancel"
+                    title="Cancel">Cancel</lightning-button>
+                </footer> -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+     </template>
 </template>

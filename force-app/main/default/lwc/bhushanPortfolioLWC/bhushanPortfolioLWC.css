@@ -1232,6 +1232,12 @@ body {
     margin-left: 0% !important;
 }
 
+
+.lookup_window_rec{
+    width: 90%;
+    height: 90vh;
+}
+
 .caption-narrative {
     padding-bottom: 1rem;
 }
@@ -1393,10 +1399,17 @@ body {
         gap: 1.5em;
     }
 
+    
+
     .job-description-info {
         padding: 0.5em 0.5em;
         font-size: 1em;
+         width: 100% !important;
     }
+
+      .job-description-info>ul{
+        width: 100% !important;
+      }
 
     .project {
         flex-direction: column !important;
@@ -1542,11 +1555,14 @@ body {
     .certificate-mobile-section{
         flex-direction: unset !important;
     }
-
-    .job-description-info{
-        width: 90% !important;
-    }
 }
+
+
+.center_item {
+  width: 100%;
+  justify-content: center;
+}
+
 
 @media (max-width: 600px) {
     .main-body, .get-in-touch, .about-main-div, .exp-section, .work-section, .content {
@@ -1722,4 +1738,11 @@ body {
 
 .position-relative {
     position: relative;
+}
+
+
+
+.lookup_window_rec{
+    background-color: unset !important;
+    width: 100%;
 }
