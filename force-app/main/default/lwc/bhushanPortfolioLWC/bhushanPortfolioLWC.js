@@ -17,12 +17,14 @@ import CHROME_EXT_CODE_CVG from "@salesforce/resourceUrl/portfolio_chrome_ext_co
 import CHROME_EXT_CUSTOM_LABEL_FINDER from "@salesforce/resourceUrl/portfolio_chrome_ext_custom_label_finder";
 import MY_IMAGE from "@salesforce/resourceUrl/bdm_passport_photo";
 import SF_CERTI_LOGOS from "@salesforce/resourceUrl/sf_certification_logo";
+import SITE_LOGO from "@salesforce/resourceUrl/portfolio_logo";
 const REQFIELDS = [
   "My_Site_Vist__c.Name",
   "My_Site_Vist__c.Portfolio_Visit__c",
 ];
 export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
+  resumeUrl = 'https://bajajfinserv84-dev-ed.develop.my.salesforce.com/sfc/p/GA0000082ztq/a/GA0000002IHf/C5qzEgX4Tmz36Zndg2gblhLh_gMjx8aGXEekyIvGDN4'
   myImage = MY_IMAGE;
   SF_CERTI_LOGOS = SF_CERTI_LOGOS;
   ddf_screen = DDF_PROJECT_SCREEN;
@@ -59,7 +61,8 @@ export default class BhushanPortfolioLWC extends LightningElement {
   screenWidthEvent;
   certishow;
   certificaritionData;
-  showFeedBackForm = true;
+  showFeedBackForm = false;
+  site_logo = SITE_LOGO;
 
 
   handleConnectWithMeClick(event) {
@@ -70,6 +73,16 @@ export default class BhushanPortfolioLWC extends LightningElement {
 
 closeFeedBackForm(){
     this.showFeedBackForm = false;
+}
+
+
+
+handleCertiClick(event){
+  let redirectUrl =  event.currentTarget.dataset.url;
+
+  if(redirectUrl){
+    window.open(redirectUrl,"_blank")
+  }
 }
 
   checkAndClick() {

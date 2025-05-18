@@ -16,6 +16,12 @@
 
 }
 
+.resume-href{
+    margin-top: 0px !important;
+        padding: 1em 1.75rem !important;
+    margin-left: 1em !important;
+}
+
 .outer-container {
     min-height: 100vh;
 }
@@ -1209,6 +1215,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
 }
 
+.logo-link{
+    cursor: pointer;
+}
+
 
 
 /* .mix-blend-mode::before{
@@ -1233,6 +1243,11 @@ body {
 }
 
 
+.logo-image {
+box-shadow: none !important;
+    border-radius: unset !important;
+}
+
 .lookup_window_rec{
     width: 90%;
     height: 90vh;
@@ -1255,7 +1270,7 @@ body {
     font-size: 2rem;
     /* or any style you want */
 }
-    .main-body, .get-in-touch, .about-main-div, .exp-section, .work-section, .content {
+    .main-body, .about-main-div, .exp-section, .work-section, .content {
         margin-left: 5vw !important;
         margin-right: 5vw !important;
         width: 90vw !important;
@@ -1565,7 +1580,7 @@ body {
 
 
 @media (max-width: 600px) {
-    .main-body, .get-in-touch, .about-main-div, .exp-section, .work-section, .content {
+    .main-body, .about-main-div, .exp-section, .work-section, .content {
         margin-left: 2vw !important;
         margin-right: 2vw !important;
         width: 96vw !important;
@@ -1588,7 +1603,7 @@ body {
 }
 
 @media (max-width: 400px) {
-    .main-body, .get-in-touch, .about-main-div, .exp-section, .work-section, .content {
+    .main-body,   .about-main-div, .exp-section, .work-section, .content {
         margin-left: 1vw !important;
         margin-right: 1vw !important;
         width: 98vw !important;
@@ -1745,4 +1760,9 @@ body {
 .lookup_window_rec{
     background-color: unset !important;
     width: 100%;
+}
+
+.logo-image {
+box-shadow: 0px 1px 11px;
+    border-radius: 49%;
 }
