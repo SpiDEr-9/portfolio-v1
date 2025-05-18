@@ -18,6 +18,7 @@ import CHROME_EXT_CUSTOM_LABEL_FINDER from "@salesforce/resourceUrl/portfolio_ch
 import MY_IMAGE from "@salesforce/resourceUrl/bdm_passport_photo";
 import SF_CERTI_LOGOS from "@salesforce/resourceUrl/sf_certification_logo";
 import SITE_LOGO from "@salesforce/resourceUrl/portfolio_logo";
+import SITE_LOADER from "@salesforce/resourceUrl/portfolio_loader_gif";
 const REQFIELDS = [
   "My_Site_Vist__c.Name",
   "My_Site_Vist__c.Portfolio_Visit__c",
@@ -26,6 +27,7 @@ export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
   resumeUrl = 'https://bajajfinserv84-dev-ed.develop.my.salesforce.com/sfc/p/GA0000082ztq/a/GA0000002IHf/C5qzEgX4Tmz36Zndg2gblhLh_gMjx8aGXEekyIvGDN4'
   myImage = MY_IMAGE;
+    siteLoader = SITE_LOADER;
   SF_CERTI_LOGOS = SF_CERTI_LOGOS;
   ddf_screen = DDF_PROJECT_SCREEN;
   chrome_ext_cc = CHROME_EXT_CODE_CVG;
@@ -48,6 +50,7 @@ export default class BhushanPortfolioLWC extends LightningElement {
   currentJobDetails = "";
   geoLocation = "";
   isFirstRender = false;
+  showLoader = true;
   socialIcons = "";
   observer;
   visitorCount = 0;
@@ -116,7 +119,23 @@ handleCertiClick(event){
       console.log("rendercallback -- work1111");
       this.isFirstRender = true;
       this.template.querySelector(".header")?.classList.add("display-flex");
+
+      
+      setTimeout(() => {
+        
+          console.log("rendercallback -- settimeout");
+          this.showContent();
+          console.log("rendercallback -- settimeout");
+    //   this.template.querySelector(".initial-loader")?.classList.add("display-none-loader")
+    },2000)
     }
+  }
+
+  showContent() {
+          console.log("rendercallback -- showContent");
+
+    this.showLoader = false;
+    //   this.template.querySelector(".initial-loader")?.classList.add("display-none-loader")
   }
 
   disconnectedCallback() {

@@ -6,6 +6,11 @@
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
+    <template if:true={showLoader} >
+        <div class="initial-loader">
+            <img src={siteLoader} alt="Loading..." class="loader_animation"/>
+        </div>
+    </template>
     <div class="outer-container">
         <header class="header">
             <nav class="nav">
