@@ -1,5 +1,7 @@
 /* Match BhushanPortfolioLWC theme: dark background, green accent, rounded, modern */
 .feedback-form {
+        height: 80vh;
+    overflow: auto;
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem 1.5rem;

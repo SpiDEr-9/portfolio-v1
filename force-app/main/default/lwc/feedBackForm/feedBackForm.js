@@ -56,6 +56,9 @@ export default class FeedBackForm extends LightningElement {
                 feedBackJson.FeedBack_Data2__c = '';
             }
             feedBackJson.Website_From__c ='portfolio feedback'
+            feedBackJson.Email__c = fields['email'];
+            feedBackJson.Mobile_Number__c = fields['mobile'];
+            feedBackJson.Name__c = fields['name'];
 
 
             saveFeedBack({feedBackJson : JSON.stringify(feedBackJson)})

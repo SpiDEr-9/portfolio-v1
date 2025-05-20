@@ -120,7 +120,8 @@ handleCertiClick(event){
       this.isFirstRender = true;
       this.template.querySelector(".header")?.classList.add("display-flex");
 
-      
+      let testss = this.template.querySelector(".header")?.classList
+      console.log("rendercallback -- classList"+ JSON.stringify(testss));
       setTimeout(() => {
         
           console.log("rendercallback -- settimeout");
@@ -135,6 +136,7 @@ handleCertiClick(event){
           console.log("rendercallback -- showContent");
 
     this.showLoader = false;
+    this.template.querySelector(".header")?.classList.add("display-flex");
     //   this.template.querySelector(".initial-loader")?.classList.add("display-none-loader")
   }
 
@@ -145,7 +147,7 @@ handleCertiClick(event){
   }
 
   checkScreenWidth() {
-    this.isMobileScreen = window.innerWidth <= 768;
+    this.isMobileScreen = window.innerWidth <= 901;
     console.log(this.isMobile ? "Mobile view" : "Desktop view");
   }
 
@@ -235,6 +237,9 @@ handleCertiClick(event){
           ?.classList.remove("hidden", "show");
         this.template.querySelector(".header")?.classList.add("display-flex");
         // console.log('up '+JSON.stringify(this.template.querySelector('.nav')?.classList));
+        if (this.isFirstRender) {
+            this.template.querySelector(".header")?.classList.add("display-flex");
+        }
       }
       setTimeout(() => {
         this.scrollYNav = window.scrollY;
@@ -425,6 +430,7 @@ handleCertiClick(event){
       github: "https://github.com/SpiDEr-9",
       linkedin: "https://www.linkedin.com/in/bdmhatre/",
       instagram: "https://www.instagram.com/bhushan_mhatre_45/",
+      trailhead : "https://www.salesforce.com/trailblazer/bhushanmhatre"
     };
 
     if (urlMap[socialLink]) {
