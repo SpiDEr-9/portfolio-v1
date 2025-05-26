@@ -23,9 +23,16 @@ const REQFIELDS = [
   "My_Site_Vist__c.Name",
   "My_Site_Vist__c.Portfolio_Visit__c",
 ];
+
+
+
+import ACCOUNT from '@salesforce/schema/Account';
+
+
 export default class BhushanPortfolioLWC extends LightningElement {
   visitCounterRecordId = "a08GA00002DlFRw";
-  resumeUrl = 'https://bajajfinserv84-dev-ed.develop.my.salesforce.com/sfc/p/GA0000082ztq/a/GA0000002IHf/C5qzEgX4Tmz36Zndg2gblhLh_gMjx8aGXEekyIvGDN4'
+  homeUrl = window.location.href.split('#')[0];
+  resumeUrl = 'https://spider245-dev-ed.develop.my.salesforce.com/sfc/p/GA0000082ztq/a/GA0000002IHf/C5qzEgX4Tmz36Zndg2gblhLh_gMjx8aGXEekyIvGDN4'
   myImage = MY_IMAGE;
     siteLoader = SITE_LOADER;
   SF_CERTI_LOGOS = SF_CERTI_LOGOS;
@@ -112,6 +119,9 @@ handleCertiClick(event){
   }
 
   renderedCallback() {
+
+    console.log('OUTPUT acc: ,',JSON.stringify(ACCOUNT));
+
     console.log("rendercallback -- work" + test);
 
     const mainBody = this.template.querySelector(".main-body");
